@@ -42,6 +42,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 userStatus+ " TEXT"+
                 ");";
         db.execSQL(query);
+        String ParamTable = "CREATE TABLE " + "Param" + "(" +
+
+                "firstuse" + " TEXT " +
+
+                ");";
+        db.execSQL(ParamTable);
+
+        String req2 = "INSERT INTO Param (firstuse)  VALUES ('1')";
+        db.execSQL(req2);
     }
     //Lesson 51
     @Override
@@ -67,7 +76,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     //Delete a product from the database
     public void deleteAnime(int id){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_ANIMES + " WHERE " + id + "=" + id +";");
+        db.execSQL("DELETE FROM " + TABLE_ANIMES + " WHERE " + id + "=" + id + ";");
     }
 
     // this is goint in record_TextView in the Main activity.
@@ -125,4 +134,35 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return listAnime;
     }
 
+    public void LeadAllAnimeFromXml() {
+
+
+    }
+
+
+    public boolean isFirstUse() {
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + "Param" + " WHERE 1";// why not leave out the WHERE  clause?
+
+        //Cursor points to a location in your results
+        Cursor recordSet = db.rawQuery(query, null);
+        //Move to the first row in your results
+        recordSet.moveToFirst();
+
+        //Position after the last row means the end of the results
+        while (!recordSet.isAfterLast()) {
+            // null could happen if we used our empty constructor
+            if (recordSet.getString(recordSet.getColumnIndex("firstuse")) != null) {
+                dbString += recordSet.getString(recordSet.getColumnIndex("animename"));
+
+            }
+            recordSet.moveToNext();
+        }
+        db.close();
+
+        if(dbString.equals('1'))
+            return true;
+            else return  false ;
+    }
 }
