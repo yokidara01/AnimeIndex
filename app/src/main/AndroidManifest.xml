@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="animeindex.kortas.com.animeindex" >
+    package="animeindex.kortas.com.animeindex">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".SplashScreen"
-            >
+        android:theme="@style/AppTheme">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,17 +28,34 @@
             android:name=".AnimeDetails"
             android:label="@string/title_activity_anime_details"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="animeindex.kortas.com.animeindex.MainActivity" />
         </activity>
         <activity android:name=".MyList" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
->
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RandomAnime" />
+        <activity android:name=".anime_info" />
+        <activity android:name=".anime_merge_page" />
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="anime_shrine.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="animeindex.kortas.com.animeindex" />
+
+        <activity android:name=".LoadSeasonAnime"></activity>
     </application>
 
 </manifest>

@@ -78,12 +78,27 @@ public class XMLPullParserHandler {
                         }else if(tagname.equalsIgnoreCase("description")) {
                             anime.setDesc(text);
                         }
+
+                        else if(tagname.equalsIgnoreCase("imageurl")) {
+                            Log.d("img",text);
+                            anime.setImg(text);
+                        }
                 else if(tagname.equalsIgnoreCase("id")) {
+                            Log.e("anime id",text);
                     anime.setId(Integer.parseInt(text));
                 }
                         else if(tagname.equalsIgnoreCase("rank")) {
-                            anime.setId(Integer.parseInt(text));
+                            anime.setRank(Integer.parseInt(text));
                         }
+
+                        else if (tagname.equalsIgnoreCase("genre")) {
+                            Log.e("anime Genre",text);
+                               anime.addGenre(text);
+
+
+                        }
+
+                        //TODO GET RANK AND GENRES
 
 
 

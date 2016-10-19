@@ -1,9 +1,15 @@
 package animeindex.kortas.com.animeindex;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,20 +19,54 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import animeindex.kortas.com.animeindex.boayz.BaseSwipListAdapter;
+import info.hoang8f.widget.FButton;
+
 import static android.R.layout.simple_list_item_1;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
+        private FButton fButton ;
+    private SwipeMenuListView mListView;
+    private String[] arrData = {
+            "Harshal Benake 0",
+            "Harshal Benake 1",
+            "Harshal Benake 2",
+            "Harshal Benake 3",
+            "Harshal Benake 4",
+            "Harshal Benake 5",
+            "Harshal Benake 6",
+            "Harshal Benake 7",
+            "Harshal Benake 8",
+            "Harshal Benake 9",
+            "Harshal Benake 10"
+    };
+    private String[] myListName;
+    private String[] myListUserStatu;
+    List<Anime> animelist;
+    private int listcount;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +91,45 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        MyDBHandler myDBHandler = new MyDBHandler(this, null, null, 1);
+       // myDBHandler.updateNotFirstUse();
+
+
+        /****************************************************/
+
+
+
+
+
+    //TextView tv = (TextView) findViewById(R.id.textView);
+   //     tv.setText(AnimeS.listAll(AnimeS.class).size());
+
+        fButton= (FButton) findViewById(R.id.loadSeasonAnimebtn);
+        try {
+
+
+        if(Global.seasonalAnime.size()>0){
+        fButton.setText(fButton.getText()+" "+Global.seasonalAnime.size()+"already exist . ovewrite?");}
+        }catch (Exception e){e.printStackTrace(); fButton.setText("Seasonal database empty");}
+
+        fButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,LoadSeasonAnime.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+
+
+
+
+        /*********************************************************/
+
+
+
     }
 
     @Override
@@ -101,17 +180,17 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_gallery) {
 
-            Intent intent = new Intent(this, AnimeDetails.class);
-
-
-
-            startActivity(intent);
+            /*Intent intent = new Intent(this, AnimeDetails.class);
+             startActivity(intent);*/
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(this,MyList.class);
              startActivity(intent);
 
 
         } else if (id == R.id.nav_manage) {
+            Intent intent = new Intent(this,RandomAnime.class);
+            startActivity(intent);
+
 
         } /*else if (id == R.id.nav_share) {
 
@@ -122,5 +201,86 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class AppAdapter extends BaseSwipListAdapter {
+
+        @Override
+        public int getCount() {
+            return animelist.size();
+        }
+
+        @Override
+        public Anime getItem(int position) {
+            return animelist.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = View.inflate(getApplicationContext(),
+                        R.layout.item_list_app_mylist, null);
+                new MainActivity.AppAdapter.ViewHolder(convertView);
+            }
+            MyList.AppAdapter.ViewHolder holder = (MyList.AppAdapter.ViewHolder) convertView.getTag();
+            Anime anime = getItem(position);
+            holder.iv_icon.setImageDrawable(getResources().getDrawable(R.drawable.nrt04calendarcover));
+            holder.tv_name.setText(anime.getName());
+            holder.iv_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "iv_icon_click", Toast.LENGTH_SHORT).show();
+                }
+            });
+            holder.tv_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "iv_icon_click", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return convertView;
+        }
+
+        class ViewHolder {
+            ImageView iv_icon;
+            TextView tv_name;
+
+            public ViewHolder(View view) {
+                iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+                tv_name = (TextView) view.findViewById(R.id.tv_name);
+                view.setTag(this);
+            }
+        }
+
+        @Override
+        public boolean getSwipEnableByPosition(int position) {
+            if (position % 2 == 0) {
+                return false;
+            }
+            return true;
+        }
+    }
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 }

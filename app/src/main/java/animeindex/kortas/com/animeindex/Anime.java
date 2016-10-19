@@ -1,6 +1,7 @@
 package animeindex.kortas.com.animeindex;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Aladinne on 25/08/2016.
@@ -8,8 +9,24 @@ import java.util.ArrayList;
 public class Anime {
     private String name,desc,type,img,aired,studio,userStatus;
     private int rank,nbrEp,id ;
-     private ArrayList<String>genres= new ArrayList<String>();
+     private List<String> genres=new ArrayList<String>();
 
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", type='" + type + '\'' +
+                ", img='" + img + '\'' +
+                ", aired='" + aired + '\'' +
+                ", studio='" + studio + '\'' +
+                ", userStatus='" + userStatus + '\'' +
+                ", rank=" + rank +
+                ", nbrEp=" + nbrEp +
+                ", id=" + id +
+                ", genres=" + genres.size() +
+                '}';
+    }
 
     public void addGenre(String s)
     {
@@ -24,11 +41,11 @@ public class Anime {
         this.userStatus = userStatus;
     }
 
-    public ArrayList<String> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 

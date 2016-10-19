@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="animeindex.kortas.com.animeindex.AnimeDetails">
+    tools:context="animeindex.kortas.com.animeindex.RandomAnime">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -65,6 +65,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        app:backgroundTint="@color/fbutton_color_belize_hole" />
 
 </android.support.design.widget.CoordinatorLayout>

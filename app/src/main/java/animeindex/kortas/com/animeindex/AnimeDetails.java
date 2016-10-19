@@ -1,10 +1,14 @@
 package animeindex.kortas.com.animeindex;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,23 +17,27 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
+
+import java.io.InputStream;
+
+import info.hoang8f.widget.FButton;
 
 public class AnimeDetails extends AppCompatActivity {
 
-
     ImageView img ;
-    TextView name ,description,rank;
+    TextView name ,rank;
+    info.hoang8f.widget.FButton mallink ;
     String NameFromIntent;
     Button b1,b2,b3 ;
     MyDBHandler dbHandler;
-    Anime a = new Anime();
+    Anime a  ;
+    ListView genres ;
     CollapsingToolbarLayout collapsingToolbarLayout ;
+    JustifiedTextView desc ;
 
 
 
@@ -64,50 +72,49 @@ public class AnimeDetails extends AppCompatActivity {
 
         // if button is clicked, close the custom dialog
 
+        a = Global.acAnime;
 
 
-        NameFromIntent=getIntent().getStringExtra("name");
-        a.setName(NameFromIntent);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
-@Override
-public void onClick(View view) {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    dialog.show();
-    b1.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            a.setUserStatus("Watching");
-            dbHandler.addAnime(a);
-            dialog.dismiss();
+                dialog.show();
+                b1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.setUserStatus("Watching");
+                        dbHandler.addAnime(a);
+                        dialog.dismiss();
 
-        }
-    });
+                    }
+                });
 
-    b2.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            a.setUserStatus("To Watch");
-            dbHandler.addAnime(a);
-            dialog.dismiss();
+                b2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.setUserStatus("To Watch");
+                        dbHandler.addAnime(a);
+                        dialog.dismiss();
 
-        }
-    });
+                    }
+                });
 
-    b3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            a.setUserStatus("Watched");
-            dbHandler.addAnime(a);
-            dialog.dismiss();
+                b3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.setUserStatus("Watched");
+                        dbHandler.addAnime(a);
+                        dialog.dismiss();
 
-        }
-    });
+                    }
+                });
 
 
-    Log.e("DBDump", dbHandler.databaseToString());
+                Log.e("DBDump", dbHandler.databaseToString());
 
       /*    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
@@ -121,18 +128,51 @@ public void onClick(View view) {
      /*   */
 
 
+        genres = (ListView) findViewById(R.id.genreslv)  ;
 
-        img = (ImageView) findViewById(R.id.img)  ;
+        Log.e("accAnime", a.toString());
+
        rank =(TextView) findViewById(R.id.rank) ;
-        description =(TextView) findViewById(R.id.desc) ;
-       // rank.setText(Global.acAnime.getRank());
+        desc =(JustifiedTextView) findViewById(R.id.descjustified) ;
+        rank.setText(a.getRank()+"");
+        mallink = (FButton) findViewById(R.id.loadSeasonAnimebtn);
+        mallink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://myanimelist.net/anime/"+a.getId()));
+                startActivity(browserIntent);
+            }
+        });
+       int i=0;
+
+        String[] values = new String[a.getGenres().size()];
+        for( String gr :a.getGenres())
+        {
+           values[i]=gr;
+            i++;
+
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        genres.setAdapter(adapter);
 
         collapsingToolbarLayout =(android.support.design.widget.CollapsingToolbarLayout) findViewById(R.id.toolbar_layout) ;
 
        // name.setText("dsfds");
-        collapsingToolbarLayout.setTitle(this.getIntent().getStringExtra("name"));
+        collapsingToolbarLayout.setTitle(a.getName());
       //  description.setText("qshdqklmshdjklqshdklqjshdjkl");
-        description.setText(Global.acAnime.getDesc());
+        desc.setText(a.getDesc());
+try {
+
+
+        new DownloadImageTask((ImageView) findViewById(R.id.img))
+                .execute(a.getImg());
+}catch (Exception e){e.printStackTrace();
+    Toast.makeText(AnimeDetails.this,e.getMessage(),Toast.LENGTH_LONG).show();
+}
 
 
 
@@ -141,5 +181,38 @@ public void onClick(View view) {
 
     }
 
+    @Override
+    public void onBackPressed() {
 
+        super.onBackPressed();
+        Intent intent = new Intent(this, SimpleSearch.class);
+        startActivity(intent);
+    }
+
+
+    class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+              //  Log.e("Error", e.getMessage());
+
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 }

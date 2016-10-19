@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public  ListView customListView ;
         setContentView(R.layout.simple_search);
        customListView = (ListView) findViewById(R.id.custom_ListView);
         adpt = new cstmAdptr(animesSafe, this);
+
         customListView.setAdapter(adpt);
         AsyncListViewLoader asyncTask =new AsyncListViewLoader();
         asyncTask.delegate = this;
@@ -107,6 +109,32 @@ public  ListView customListView ;
 
             }
         });
+
+
+        searchtxt.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    //this is for backspace
+                    animesSafe=Global.MyAnimeList;
+                    ArrayList<Anime> tempArrayList = new ArrayList<Anime>();
+                    for(Anime a: adpt.getItemList()){
+                        if (searchtxt.getText().length() <= a.getName().length()) {
+                            if (a.getName().toLowerCase().contains(searchtxt.getText().toString().toLowerCase())) {
+                                tempArrayList.add(a);
+                            }
+                        }
+                    }
+
+                    adpt.setItemList(tempArrayList);
+                    customListView.setAdapter(adpt);
+
+
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -148,8 +176,9 @@ public  ListView customListView ;
             List<Anime> result = new ArrayList<>();
 
             try {
-                XMLPullParserHandler parser = new XMLPullParserHandler();
-                result = parser.parse(getAssets().open("animelist.xml"));
+               // XMLPullParserHandler parser = new XMLPullParserHandler();
+              //  result = parser.parse(getAssets().open("animelist.xml"));
+                result=Global.AllAnime;
                 Log.d("resultSize",result.size()+"") ;
 
             }catch (Exception e){e.printStackTrace();}

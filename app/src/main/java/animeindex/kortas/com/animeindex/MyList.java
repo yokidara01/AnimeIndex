@@ -2,6 +2,7 @@ package animeindex.kortas.com.animeindex;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,7 +111,7 @@ public class MyList extends AppCompatActivity {
                 item1.setWidth(100);
 
                 // set item title
-                item1.setTitle("Item 1");
+                item1.setTitle("Status");
                 // set item title fontsize
                 item1.setTitleSize(18);
                 // set item title font color
@@ -127,26 +128,26 @@ public class MyList extends AppCompatActivity {
                 // set item width
                 item2.setWidth(100);
                 // set a icon
-                item2.setIcon(R.drawable.ic_launcher);
+                item2.setIcon(R.drawable.ic_menu_delete);
                 // add to menu
                 menu.addMenuItem(item2);
 
                 // create "item3"
-                SwipeMenuItem item3 = new SwipeMenuItem(getApplicationContext());
+              //  SwipeMenuItem item3 = new SwipeMenuItem(getApplicationContext());
                 // set item background
-                item3.setBackground(new ColorDrawable(Color.parseColor("#138808")));
+              //  item3.setBackground(new ColorDrawable(Color.parseColor("#138808")));
                 // set item width
-                item3.setWidth(100);
+              //  item3.setWidth(100);
                 // set a icon
                 //item3.setIcon(R.drawable.ic_launcher);
                 // set item title
-                item3.setTitle("Item 3");
+               // item3.setTitle("Status");
                 // set item title fontsize
-                item3.setTitleSize(18);
+               // item3.setTitleSize(18);
                 // set item title font color
-                item3.setTitleColor(Color.WHITE);
+               // item3.setTitleColor(Color.WHITE);
                 // add to menu
-                menu.addMenuItem(item3);
+             //   menu.addMenuItem(item3);
             }
         };
 

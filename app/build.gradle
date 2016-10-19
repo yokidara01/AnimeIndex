@@ -8,8 +8,8 @@ android {
         applicationId "animeindex.kortas.com.animeindex"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.3"
     }
     buildTypes {
         release {
@@ -17,6 +17,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    apply plugin: 'android-apt'
+    apply plugin: 'com.android.application'
+    apply plugin: 'com.neenbedankt.android-apt'
+
+    apt {
+        arguments {
+            resourcePackageName android.defaultConfig.applicationId
+            androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        }
+    }
+
+
 }
 
 dependencies {
@@ -30,4 +43,17 @@ dependencies {
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
 
     compile 'com.github.bluejamesbond:textjustify-android:2.1.6'
+    compile 'info.hoang8f:fbutton:1.0.5'
+
+    compile 'com.uncopt:android.justified:1.0'
+    compile 'org.jsoup:jsoup:1.9.2'
+
+    compile 'com.github.satyan:sugar:1.4'
+    compile  'it.michelelacorte.elasticprogressbar:library:1.0.5'
+    compile  'it.michelelacorte.elasticprogressbar:library:1.0.5@aar'
+
+    compile 'com.jakewharton:butterknife:8.4.0'
+
+   // compile 'com.github.ugurcany:InfiniteListView:1.1.1'
+
 }

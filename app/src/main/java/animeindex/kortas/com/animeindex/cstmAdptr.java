@@ -64,8 +64,9 @@ public class cstmAdptr extends ArrayAdapter<Anime>  implements Filterable {
         TextView text = (TextView) v.findViewById(R.id.item_text);
         text.setText(a.getName());
         ImageView buckysImage = (ImageView) v.findViewById(R.id.my_profile_image);
-        buckysImage.setImageResource(R.drawable.nrt04calendarcover);
+       // buckysImage.setImageResource(R.drawable.nrt04calendarcover);
 
+buckysImage.setImageBitmap(null);
         return v;
 
     }
