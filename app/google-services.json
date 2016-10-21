@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "28235822515",
+    "firebase_url": "https://anime-shrine.firebaseio.com",
+    "project_id": "anime-shrine",
+    "storage_bucket": "anime-shrine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28235822515:android:9adb82fe950467b6",
+        "android_client_info": {
+          "package_name": "animeindex.kortas.com.animeindex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28235822515-64nrh8bhdnua5koqipk48o8thed03mjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmxKy1DEJBZOwFWja2z73U6wchpCIRc_8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

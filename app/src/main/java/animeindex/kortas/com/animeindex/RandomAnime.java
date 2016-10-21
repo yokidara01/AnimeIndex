@@ -135,7 +135,7 @@ public class RandomAnime extends AppCompatActivity {
         Log.e("accAnime", a.toString());
 
         rank =(TextView) findViewById(R.id.rank) ;
-        desc =(JustifiedTextView) findViewById(R.id.descjustified) ;
+        desc =(JustifiedTextView) findViewById(R.id.desc) ;
         rank.setText(a.getRank()+"");
         mallink = (FButton) findViewById(R.id.loadSeasonAnimebtn);
         mallink.setOnClickListener(new View.OnClickListener() {

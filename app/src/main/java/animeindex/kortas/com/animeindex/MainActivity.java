@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,11 +34,16 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import animeindex.kortas.com.animeindex.AdsAndDataMining.UserInformation;
 import animeindex.kortas.com.animeindex.boayz.BaseSwipListAdapter;
 import info.hoang8f.widget.FButton;
 
@@ -127,6 +133,15 @@ public class MainActivity extends AppCompatActivity
 
 
         /*********************************************************/
+
+        MobileAds.initialize(getApplicationContext(),"ca-app-pub-8576924018474704/4754853076");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        adView.loadAd(adRequest);
+
+        UserInformation userInformation = new UserInformation(MainActivity.this);
 
 
 

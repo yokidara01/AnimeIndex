@@ -33,6 +33,8 @@ public class cstmAdptr extends ArrayAdapter<Anime>  implements Filterable {
         this.context = ctx;
     }
 
+
+
     public int getCount() {
         if (itemList != null)
             return itemList.size();
