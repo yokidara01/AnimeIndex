@@ -30,7 +30,7 @@ public class AnimeDetails extends AppCompatActivity {
 
     ImageView img ;
     TextView name ,rank;
-    info.hoang8f.widget.FButton mallink ;
+   Button mallink ;
     String NameFromIntent;
     Button b1,b2,b3 ;
     MyDBHandler dbHandler;
@@ -48,7 +48,7 @@ public class AnimeDetails extends AppCompatActivity {
         setContentView(R.layout.activity_anime_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Log.e("animedesc","test");
         dbHandler = new MyDBHandler(this, null, null, 1);
 
 
@@ -135,7 +135,7 @@ public class AnimeDetails extends AppCompatActivity {
        rank =(TextView) findViewById(R.id.rank) ;
         desc =(JustifiedTextView) findViewById(R.id.descjustified) ;
         rank.setText(a.getRank()+"");
-        mallink = (FButton) findViewById(R.id.loadSeasonAnimebtn);
+        mallink = (Button) findViewById(R.id.loadSeasonAnimebtn);
         mallink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

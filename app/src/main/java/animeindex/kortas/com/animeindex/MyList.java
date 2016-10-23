@@ -38,6 +38,7 @@ import java.util.List;
 
 import animeindex.kortas.com.animeindex.boayz.BaseSwipListAdapter;
 
+
 public class MyList extends AppCompatActivity {
 
 
@@ -63,6 +64,7 @@ public class MyList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_my_list);
 
 
@@ -276,7 +278,15 @@ public class MyList extends AppCompatActivity {
                 getResources().getDisplayMetrics());
     }
 
-    @Override
+
+
+
+
+
+
+
+
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_swipe_lv, menu);
         return true;
@@ -296,5 +306,5 @@ public class MyList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

@@ -6,6 +6,7 @@
 
 
     <Button
+        android:theme="@style/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Watching"
@@ -16,6 +17,7 @@
         android:layout_gravity="center_horizontal" />
 
     <Button
+        android:theme="@style/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="To Watch"
@@ -25,6 +27,7 @@
         android:layout_gravity="center_horizontal" />
 
     <Button
+        android:theme="@style/MyButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -81,6 +81,7 @@ public class LoadSeasonAnime extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             super.onCancelled();
+
         }
 
         @Override

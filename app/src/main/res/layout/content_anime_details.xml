@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -34,7 +35,10 @@
             android:focusableInTouchMode="false"
             android:text="qsdq"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:paddingRight="20dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="30dp" />
 
 
         <LinearLayout
@@ -77,7 +81,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/linearLayout"
-                    android:layout_alignParentTop="true">
+                    android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,7 +93,6 @@
                         android:id="@+id/textView4"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="39dp"
                         android:textSize="18dp"
                         android:layout_gravity="center_horizontal" />
 
@@ -96,13 +101,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2567"
-                        android:layout_marginLeft="36dp"
                         android:layout_below="@+id/textView4"
                         android:layout_alignEnd="@+id/textView4"
                         android:textSize="18dp"
                         android:layout_gravity="center_horizontal" />
 
-                    <info.hoang8f.widget.FButton
+
+                <Button
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyButton"
+                    android:text="Full review"
+                    android:id="@+id/loadSeasonAnimebtn"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.09" />
+
+                <!--    <info.hoang8f.widget.FButton
                         android:id="@+id/loadSeasonAnimebtn"
                         android:layout_width="183dp"
                         android:layout_height="68dp"
@@ -122,7 +140,7 @@
                         android:layout_marginRight="20dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentStart="true"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal" />-->
                 </LinearLayout>
         </LinearLayout>
 

@@ -16,12 +16,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SplashScreen extends Activity implements AsyncResponse {
     TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash_screen);
         tv = (TextView) findViewById(R.id.tvsplash);
 

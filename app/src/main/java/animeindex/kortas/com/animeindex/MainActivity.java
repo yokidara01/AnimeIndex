@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -45,13 +46,14 @@ import java.util.List;
 
 import animeindex.kortas.com.animeindex.AdsAndDataMining.UserInformation;
 import animeindex.kortas.com.animeindex.boayz.BaseSwipListAdapter;
+
 import info.hoang8f.widget.FButton;
 
 import static android.R.layout.simple_list_item_1;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-        private FButton fButton ;
+        private Button fButton ;
     private SwipeMenuListView mListView;
     private String[] arrData = {
             "Harshal Benake 0",
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,7 +113,19 @@ public class MainActivity extends AppCompatActivity
     //TextView tv = (TextView) findViewById(R.id.textView);
    //     tv.setText(AnimeS.listAll(AnimeS.class).size());
 
-        fButton= (FButton) findViewById(R.id.loadSeasonAnimebtn);
+
+        Button sbButton = (Button) findViewById(R.id.simplesearchviewByn);
+        sbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SimpleSearch.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        fButton= (Button) findViewById(R.id.loadSeasonAnimebtn);
         try {
 
 
@@ -141,7 +156,8 @@ public class MainActivity extends AppCompatActivity
         AdView adView = (AdView) findViewById(R.id.adView);
         adView.loadAd(adRequest);
 
-        UserInformation userInformation = new UserInformation(MainActivity.this);
+
+      //  UserInformation userInformation = new UserInformation(MainActivity.this);
 
 
 
